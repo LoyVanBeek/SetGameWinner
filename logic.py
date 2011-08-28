@@ -15,7 +15,7 @@
 %: card(Colour, Shape, Fill, Count).
 % number (one, two, or three);
 % symbol (diamond, squiggle, oval);
-% shading (solid, striped, or open);
+% shading (full, striped, or empty);
 % and color (red, green, or purple)
 """
 import itertools
@@ -23,7 +23,7 @@ import random
 
 numbers     = (1,2,3)
 shapes      = ("diamond",   "squiggle", "oval")
-fills     = ("solid",     "striped",  "open")
+fills       = ("full",     "striped",  "empty")
 colors      = ("red",       "green",    "purple")
 
 
@@ -80,18 +80,6 @@ def generate_all_cards():
                 for num in numbers:
                     yield Card(color, shape, fill, num)
 
-
-all_cards = list(generate_all_cards())
-table = random.sample(all_cards, 12)
-
-c1 = Card("green", "squiggle", "solid", 1)
-c2 = Card("green", "oval", "open", 2)
-c3 = Card("green", "diamond", "striped", 3)
-c4 = Card("green", "diamond", "solid", 3)
-allcards = [c1, c2, c3, c4]
-set1 = [c1, c2, c3]
-noset = [c1, c2, c4]
-
 def brute():
     sets = findsets(all_cards)#findsets(random.sample(all_cards, 15))#findsets(set1)
     for s in sets:
@@ -102,17 +90,29 @@ def brute():
 
 if __name__ == "__main__":
 ##    sets = brute()
-    k1 = Card("purple", "squiggle", "solid", 1)
+    all_cards = list(generate_all_cards())
+    table = random.sample(all_cards, 12)
+
+    c1 = Card("green", "squiggle", "full", 1)
+    c2 = Card("green", "oval", "empty", 2)
+    c3 = Card("green", "diamond", "striped", 3)
+    c4 = Card("green", "diamond", "full", 3)
+    allcards = [c1, c2, c3, c4]
+    set1 = [c1, c2, c3]
+    noset = [c1, c2, c4]
+
+    
+    k1 = Card("purple", "squiggle", "full", 1)
     k2 = Card("purple", "squiggle", "striped", 1)
-    k3 = Card("purple", "oval", "open", 1)
-    k4 = Card("green", "squiggle", "open", 1)
-    k5 = Card("purple", "squiggle", "open", 3)
-    k6 = Card("green", "diamond", "solid", 2)
-    k7 = Card("purple", "diamond", "solid", 3)
-    k8 = Card("red", "oval", "open", 1)
-    k9 = Card("red", "oval", "open", 2)
-    k10 = Card("red", "diamond", "open", 3)
-    k11 = Card("green", "oval", "open", 2)
-    k12 = Card("purple", "diamond", "solid", 1)
+    k3 = Card("purple", "oval", "empty", 1)
+    k4 = Card("green", "squiggle", "empty", 1)
+    k5 = Card("purple", "squiggle", "empty", 3)
+    k6 = Card("green", "diamond", "full", 2)
+    k7 = Card("purple", "diamond", "full", 3)
+    k8 = Card("red", "oval", "empty", 1)
+    k9 = Card("red", "oval", "empty", 2)
+    k10 = Card("red", "diamond", "empty", 3)
+    k11 = Card("green", "oval", "empty", 2)
+    k12 = Card("purple", "diamond", "full", 1)
     cards = [k1,k2,k3,k4,k5,k6,k7,k8,k9,k10,k11,k12]
-    findsets(cards)
+    print findsets(cards)
