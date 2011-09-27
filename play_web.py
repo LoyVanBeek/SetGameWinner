@@ -37,7 +37,7 @@ card2short = {value:key for key, value in short2card.iteritems()}
 def find_cards(bmp):
     for card, name in card2short.iteritems():
         img = au.bitmap.Bitmap.open("images/{0}.png".format(name))
-        pos = bmp.find_bitmap(img)
+        pos = bmp.find_bitmap(img) #finds the position of the card in the screen
         if pos:
             yield card, pos
 
@@ -48,16 +48,18 @@ def find_sets():
     sets = logic.findsets(table.keys())
     return table, sets
 
-if __name__ == "__main__":
+if __name__ == "__main__":   
     table, sets = find_sets()
 
     for s in sets:
         print "-"*10
         for card in s:
-            print card
-            pos = table[card]
+            pos = list(table[card])
+            pos[0] += 50
+            pos[1] += 50
             au.mouse.smooth_move(pos[0], pos[1])
-            print "Click:"
+            print "{0} @ {1}".format(card, pos)
             au.mouse.click()
-            time.sleep(0.5)
+            time.sleep(0.1)
+        time.sleep(0.5)
         
